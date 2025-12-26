@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dra. Andressa Valim | Odontologia Real</title>
+    <!-- Tailwind via CDN para garantir que os estilos carreguem mesmo sem processamento de CSS complexo -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -47,7 +48,7 @@
   <body class="bg-stone-50 text-stone-900">
     <noscript>Você precisa ativar o JavaScript para visualizar esta página.</noscript>
     <div id="root"></div>
-    <!-- O Vite usará este arquivo como ponto de entrada -->
+    <!-- O Vite transformará este arquivo .tsx em .js durante o deploy na Vercel -->
     <script type="module" src="/index.tsx"></script>
   </body>
 </html>
