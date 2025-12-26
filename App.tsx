@@ -4,11 +4,16 @@ import {
   CheckCircle2, 
   Heart, 
   ShieldCheck, 
-  Clock, 
   Star,
   Instagram,
   Maximize2,
-  X
+  X,
+  Stethoscope,
+  Smile,
+  Shield,
+  Sparkles,
+  MapPin,
+  Calendar
 } from 'lucide-react';
 
 // --- Constants ---
@@ -39,247 +44,275 @@ const IMAGES = {
 // --- Components ---
 
 const Lightbox: React.FC<{ imageUrl: string; onClose: () => void }> = ({ imageUrl, onClose }) => (
-  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 p-4" onClick={onClose}>
-    <button className="absolute top-6 right-6 text-white" onClick={onClose}>
+  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 p-4 backdrop-blur-sm" onClick={onClose}>
+    <button className="absolute top-6 right-6 text-white hover:text-stone-300 transition-colors" onClick={onClose}>
       <X size={32} />
     </button>
-    <img src={imageUrl} alt="Result" className="max-w-full max-h-full object-contain rounded-lg" />
+    <img src={imageUrl} alt="Resultado" className="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl" />
   </div>
 );
 
 const Section: React.FC<{ children: React.ReactNode; className?: string; id?: string }> = ({ children, className = "", id }) => (
-  <section id={id} className={`py-16 px-6 md:px-12 lg:px-24 ${className}`}>
+  <section id={id} className={`py-16 px-6 md:py-24 ${className}`}>
     <div className="max-w-5xl mx-auto">{children}</div>
   </section>
 );
 
 const CTAButton: React.FC<{ label: string; subtext?: string; className?: string }> = ({ label, subtext, className = "" }) => (
-  <div className={`flex flex-col items-center gap-3 ${className}`}>
+  <div className={`flex flex-col items-center gap-2 ${className}`}>
     <a 
       href={WHATSAPP_URL} 
       target="_blank" 
       rel="noopener noreferrer"
-      className="cta-button w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white font-bold py-4 px-8 rounded-full shadow-xl flex items-center justify-center gap-3 text-lg text-center leading-tight"
+      className="cta-button w-full sm:w-auto bg-[#25D366] hover:bg-[#1ebd5b] text-white font-bold py-5 px-10 rounded-full shadow-[0_10px_30px_rgba(37,211,102,0.3)] flex items-center justify-center gap-3 text-lg text-center leading-tight uppercase tracking-wide"
     >
       <MessageCircle size={24} className="fill-white" />
       {label}
     </a>
-    {subtext && <span className="text-stone-500 text-sm font-medium italic opacity-80">{subtext}</span>}
+    {subtext && <span className="text-stone-500 text-sm font-medium italic opacity-70">{subtext}</span>}
   </div>
 );
 
 const App: React.FC = () => {
   const [activeImage, setActiveImage] = useState<string | null>(null);
 
-  const openImage = (url: string) => setActiveImage(url);
-  const closeImage = () => setActiveImage(null);
-
   return (
-    <div className="min-h-screen">
-      {/* 1. HERO SECTION */}
-      <section className="relative pt-12 pb-24 overflow-hidden bg-stone-100 flex flex-col items-center">
-        <div className="relative z-10 text-center px-6 max-w-3xl">
-          <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl text-stone-800 leading-tight mb-8">
-            Eu sou a <span className="text-emerald-800 font-bold italic">Dra. Andressa Valim</span>
+    <div className="min-h-screen selection:bg-emerald-100 selection:text-emerald-900">
+      
+      {/* 1. HERO SECTION (Primeira Dobra) */}
+      <section className="relative min-h-[90vh] flex flex-col items-center justify-center overflow-hidden bg-gradient-to-b from-stone-100 to-white pt-16">
+        <div className="relative z-10 text-center px-6 max-w-4xl">
+          <span className="inline-block text-emerald-800 font-bold tracking-[0.2em] uppercase text-xs mb-4">Bem-vindo à Odontologia Real</span>
+          <h1 className="font-serif text-5xl md:text-7xl text-stone-900 leading-[1.1] mb-6">
+            Eu sou a <br/>
+            <span className="text-emerald-900 italic font-medium">Dra. Andressa Valim</span>
           </h1>
 
-          <div className="relative w-full max-w-xs md:max-w-sm mx-auto mb-10 px-4">
+          <div className="relative w-full max-w-xs md:max-w-sm mx-auto mb-10 mt-8 group">
+             <div className="absolute inset-0 bg-emerald-200 rounded-[3rem] rotate-3 group-hover:rotate-0 transition-transform duration-500 -z-10 opacity-30"></div>
              <img 
               src={IMAGES.expert_hero} 
               alt="Dra. Andressa Valim" 
-              className="w-full h-auto drop-shadow-2xl rounded-3xl relative z-10"
+              className="w-full h-auto drop-shadow-2xl rounded-[3rem] relative z-10 grayscale-[10%] hover:grayscale-0 transition-all duration-700"
             />
-            <div className="absolute -bottom-4 -right-4 w-24 h-24 bg-emerald-100 rounded-full mix-blend-multiply opacity-70 animate-pulse"></div>
-            <div className="absolute -top-4 -left-4 w-20 h-20 bg-stone-200 rounded-full mix-blend-multiply opacity-50"></div>
           </div>
 
-          <p className="text-lg md:text-xl text-stone-600 font-light max-w-2xl mx-auto mb-6 leading-relaxed">
-            Especialista em resgatar sua autoestima através da <span className="font-semibold text-stone-800">Odontologia Real</span>: próteses, implantes e bem-estar total com sedação consciente.
+          <p className="text-xl md:text-2xl text-stone-600 font-light max-w-2xl mx-auto mb-10 leading-relaxed">
+            Especialista em resgatar sua autoestima através de uma <span className="font-semibold text-stone-800">odontologia humana</span>, segura e centrada no seu bem-estar.
           </p>
+
+          <CTAButton 
+            label="Agendar consulta gratuita" 
+            subtext="sem compromisso"
+          />
         </div>
       </section>
 
-      {/* 2. QUEM SOU EU */}
-      <Section className="bg-white">
+      {/* 2. QUEM SOU EU (Autoridade) */}
+      <Section className="bg-white border-y border-stone-100">
         <div className="flex flex-col md:flex-row items-center gap-12">
-          <div className="w-full md:w-1/2">
-            <img 
-              src={IMAGES.expert_about} 
-              alt="Sobre a Dra. Andressa" 
-              className="rounded-2xl shadow-2xl w-full object-cover"
-            />
+          <div className="w-full md:w-5/12">
+            <div className="relative">
+              <img 
+                src={IMAGES.expert_about} 
+                alt="Dra. Andressa Valim em atendimento" 
+                className="rounded-3xl shadow-2xl w-full aspect-[4/5] object-cover"
+              />
+              <div className="absolute -bottom-6 -right-6 bg-white p-6 rounded-2xl shadow-xl hidden md:block">
+                <p className="text-emerald-900 font-bold text-2xl">Arroio Teixeira</p>
+                <p className="text-stone-500 text-sm">Capão da Canoa - RS</p>
+              </div>
+            </div>
           </div>
-          <div className="w-full md:w-1/2 space-y-8">
-            <h2 className="font-serif text-3xl md:text-4xl text-stone-800">Cuidado humano e técnica de excelência</h2>
-            <p className="text-stone-600 leading-relaxed">
-              Sou Protesista e Implantodontista focada em uma odontologia que vai além do consultório. Acredito que o seu sorriso é o seu cartão de visitas, mas a sua saúde é a base de tudo. 
-            </p>
-            <ul className="space-y-4 text-stone-700">
-              <li className="flex items-start gap-3">
-                <CheckCircle2 className="text-emerald-600 mt-1 flex-shrink-0" size={20} />
-                <span><strong className="text-stone-900">Odontologia Real:</strong> Tratamentos honestos focados no seu bem-estar.</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <CheckCircle2 className="text-emerald-600 mt-1 flex-shrink-0" size={20} />
-                <span><strong className="text-stone-900">Conforto Total:</strong> Uso de sedação com Óxido Nitroso para uma experiência sem medo.</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <CheckCircle2 className="text-emerald-600 mt-1 flex-shrink-0" size={20} />
-                <span><strong className="text-stone-900">Expertise Técnica:</strong> Especialista em Próteses e Implantodontia.</span>
-              </li>
-            </ul>
-
-            <CTAButton 
-              label="Agendar consulta gratuita no WhatsApp" 
-              subtext="*Sem nenhum compromisso"
-              className="!items-start"
-            />
+          <div className="w-full md:w-7/12 space-y-8">
+            <h2 className="font-serif text-4xl text-stone-900">Transformando vidas através do sorriso</h2>
+            <div className="space-y-4 text-stone-600 text-lg leading-relaxed">
+              <p>
+                Sou Protesista e Implantodontista, e minha missão é oferecer uma <span className="text-stone-900 font-medium italic">Odontologia Real</span>. Aquela que não foca apenas na técnica, mas na pessoa por trás do sorriso.
+              </p>
+              <p>
+                Acredito que o tratamento odontológico não precisa ser traumático. Por isso, utilizo a <span className="text-emerald-800 font-semibold underline decoration-emerald-200 underline-offset-4">Sedação com Óxido Nitroso</span> para garantir que você tenha uma experiência tranquila e livre de medo.
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
+              {[
+                "Atendimento Personalizado",
+                "Clareza em cada etapa",
+                "Conforto e Segurança",
+                "Foco em Saúde e Bem-estar"
+              ].map((item, i) => (
+                <div key={i} className="flex items-center gap-3 bg-stone-50 p-4 rounded-xl">
+                  <CheckCircle2 className="text-emerald-600 flex-shrink-0" size={20} />
+                  <span className="text-stone-800 font-medium">{item}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </Section>
 
       {/* 3. RESULTADOS REAIS */}
       <Section className="bg-stone-50">
-        <div className="text-center mb-12">
-          <h2 className="font-serif text-3xl md:text-4xl text-stone-800 mb-4">Sorrisos que transformam vidas</h2>
-          <p className="text-stone-500 italic max-w-xl mx-auto">Resultados reais de pacientes que confiaram em meu trabalho.</p>
+        <div className="text-center mb-16">
+          <h2 className="font-serif text-4xl text-stone-900 mb-4">Resultados Reais</h2>
+          <p className="text-stone-600 max-w-2xl mx-auto text-lg">A prova de que a dedicação e a técnica correta podem devolver a vontade de sorrir.</p>
         </div>
-        
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-6 mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
           {IMAGES.results.map((url, index) => (
             <div 
               key={index} 
-              className="group relative aspect-square bg-stone-200 rounded-xl overflow-hidden cursor-pointer shadow-sm hover:shadow-lg transition-shadow"
-              onClick={() => openImage(url)}
+              className="group relative cursor-pointer overflow-hidden rounded-2xl aspect-[4/3] bg-white shadow-md hover:shadow-2xl transition-all"
+              onClick={() => setActiveImage(url)}
             >
-              <img src={url} alt={`Resultado ${index + 1}`} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
-              <div className="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
-                <Maximize2 className="text-white" size={24} />
+              <img 
+                src={url} 
+                alt={`Resultado ${index + 1}`} 
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-emerald-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-[2px]">
+                <Maximize2 className="text-white" size={32} />
               </div>
             </div>
           ))}
         </div>
-        <p className="text-center text-xs text-stone-400 mt-4">*Resultados podem variar de pessoa para pessoa. Cada caso é único.</p>
+        <p className="text-center text-stone-400 text-sm mt-10 italic">Aviso: Os resultados podem variar de pessoa para pessoa.</p>
       </Section>
 
-      {/* 4. POR QUE CONFIAR */}
-      <Section className="bg-emerald-900 text-white">
-        <div className="text-center mb-12">
-          <h2 className="font-serif text-3xl md:text-4xl mb-4">O diferencial do meu atendimento</h2>
-          <p className="text-emerald-100/80">O que você encontra ao entrar no meu consultório.</p>
+      {/* 4. POR QUE CONFIAR EM MIM */}
+      <Section className="bg-white">
+        <div className="text-center mb-16">
+          <h2 className="font-serif text-4xl text-stone-900 mb-4">Por que confiar em mim?</h2>
+          <p className="text-stone-600">Diferenciais que tornam o meu atendimento exclusivo.</p>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {[
-            { icon: <ShieldCheck size={32} />, title: "Avaliação Honesta", text: "Diagnósticos precisos, sem sugerir tratamentos desnecessários." },
-            { icon: <Heart size={32} />, title: "Foco no Bem-estar", text: "Humanização é a palavra de ordem em cada procedimento." },
-            { icon: <Star size={32} />, title: "Tecnologia de Ponta", text: "Sedação consciente e materiais de altíssima qualidade." },
-            { icon: <Clock size={32} />, title: "Pontualidade", text: "Respeito total ao seu tempo e planejamento." },
-            { icon: <MessageCircle size={32} />, title: "Clareza", text: "Explicação detalhada de cada etapa do seu tratamento." },
-            { icon: <CheckCircle2 size={32} />, title: "Atendimento comigo", text: "Você será atendido diretamente por mim em todas as etapas." }
-          ].map((item, idx) => (
-            <div key={idx} className="bg-emerald-800/40 p-8 rounded-2xl border border-emerald-700/50 flex flex-col items-center text-center">
-              <div className="text-emerald-400 mb-4">{item.icon}</div>
-              <h3 className="text-xl font-bold mb-2">{item.title}</h3>
-              <p className="text-emerald-100/70 text-sm leading-relaxed">{item.text}</p>
+            { icon: <ShieldCheck size={32} />, title: "Avaliação Honesta", desc: "Nada de tratamentos desnecessários. Clareza total sobre o que você realmente precisa." },
+            { icon: <Smile size={32} />, title: "Sedação Consciente", desc: "Tecnologia com Óxido Nitroso para quem tem medo de dentista. Conforto absoluto." },
+            { icon: <Stethoscope size={32} />, title: "Atendimento Comigo", desc: "Você será atendido(a) diretamente por mim em todas as etapas decisivas." },
+            { icon: <Sparkles size={32} />, title: "Materiais Premium", desc: "Uso exclusivo de materiais de alta durabilidade e estética superior." },
+            { icon: <MapPin size={32} />, title: "Fácil Acesso", desc: "Consultório localizado em Arroio Teixeira, planejado para seu bem-estar." },
+            { icon: <Calendar size={32} />, title: "Pontualidade", desc: "Respeitamos seu tempo com agendamentos precisos e sem esperas longas." },
+          ].map((item, i) => (
+            <div key={i} className="flex flex-col p-8 bg-stone-50 rounded-[2rem] border border-stone-100 hover:border-emerald-200 transition-colors">
+              <div className="text-emerald-700 mb-6 bg-emerald-100 w-16 h-16 flex items-center justify-center rounded-2xl">
+                {item.icon}
+              </div>
+              <h3 className="font-serif text-2xl text-stone-800 mb-3">{item.title}</h3>
+              <p className="text-stone-500 leading-relaxed">{item.desc}</p>
             </div>
           ))}
         </div>
       </Section>
 
       {/* 5. CTA INTERMEDIÁRIO */}
-      <Section className="bg-stone-100 text-center">
-        <div className="max-w-2xl mx-auto space-y-8">
-          <h2 className="font-serif text-3xl text-stone-800 italic">"Será que é para mim?"</h2>
-          <p className="text-lg text-stone-600">Muitos pacientes chegam com medo ou insegurança. Eu estou aqui para mostrar que cuidar da sua saúde bucal pode ser leve e tranquilo.</p>
-          <CTAButton 
-            label="Conversar agora no WhatsApp" 
-            subtext="Tire suas dúvidas gratuitamente"
-          />
+      <div className="bg-emerald-50 py-16 px-6 text-center">
+        <div className="max-w-3xl mx-auto">
+          <h2 className="font-serif text-3xl text-emerald-900 mb-6 italic">Ainda tem dúvidas se este é o momento certo?</h2>
+          <p className="text-stone-600 text-lg mb-8 leading-relaxed">
+            A primeira avaliação é o momento de conversarmos sem pressa. Vamos entender suas necessidades e traçar o melhor caminho juntos.
+          </p>
+          <CTAButton label="Conversar no WhatsApp agora" className="items-center" />
         </div>
-      </Section>
+      </div>
 
-      {/* 6. COMO FUNCIONA */}
+      {/* 6. COMO FUNCIONA A PRIMEIRA CONSULTA */}
       <Section className="bg-white">
-        <div className="text-center mb-12">
-          <h2 className="font-serif text-3xl md:text-4xl text-stone-800">Sua jornada para o novo sorriso</h2>
+        <div className="text-center mb-16">
+          <h2 className="font-serif text-4xl text-stone-900 mb-4">Como funciona?</h2>
+          <p className="text-stone-600">3 passos simples para transformar sua saúde bucal.</p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 relative">
+          <div className="hidden md:block absolute top-1/2 left-0 w-full h-px bg-stone-100 -z-10"></div>
           {[
-            { step: "01", title: "Contato Inicial", desc: "Você clica no link e envia uma mensagem para nossa equipe no WhatsApp." },
-            { step: "02", title: "Agendamento", desc: "Escolhemos o melhor horário para sua primeira avaliação gratuita." },
-            { step: "03", title: "A Consulta", desc: "Realizamos uma avaliação completa e personalizada do seu caso." }
-          ].map((item, idx) => (
-            <div key={idx} className="relative p-8 bg-stone-50 rounded-2xl border border-stone-100 flex flex-col items-center text-center">
-              <span className="text-6xl font-serif font-bold text-stone-200 absolute -top-4 right-6 leading-none select-none">{item.step}</span>
-              <h3 className="text-xl font-bold text-stone-800 mt-4 mb-3">{item.title}</h3>
-              <p className="text-stone-600 text-sm leading-relaxed relative z-10">{item.desc}</p>
+            { step: "01", title: "Contato", desc: "Clique no botão e nos envie uma mensagem rápida pelo WhatsApp." },
+            { step: "02", title: "Agendamento", desc: "Escolha o melhor dia e horário para sua consulta gratuita." },
+            { step: "03", title: "Avaliação", desc: "Venha até o consultório para uma conversa e diagnóstico completo." },
+          ].map((item, i) => (
+            <div key={i} className="bg-white p-10 rounded-[2.5rem] shadow-sm border border-stone-100 text-center relative hover:shadow-xl transition-shadow">
+              <span className="absolute -top-6 left-1/2 -translate-x-1/2 w-12 h-12 bg-emerald-800 text-white rounded-full flex items-center justify-center font-bold text-lg shadow-lg">
+                {item.step}
+              </span>
+              <h3 className="font-serif text-2xl text-stone-800 mb-4 mt-2">{item.title}</h3>
+              <p className="text-stone-500 leading-relaxed">{item.desc}</p>
             </div>
           ))}
         </div>
-        <div className="mt-12 text-center bg-emerald-50 p-6 rounded-xl border border-emerald-100 inline-block w-full">
-           <p className="text-emerald-800 font-medium">✨ A primeira avaliação é 100% gratuita e sem compromisso!</p>
+        <div className="mt-16 text-center">
+          <p className="text-emerald-900 font-bold text-xl mb-4 italic">Reiteramos: gratuito e sem compromisso.</p>
         </div>
       </Section>
 
-      {/* 7. MAIS PROVAS */}
-      <Section className="bg-stone-50 overflow-hidden">
-        <div className="text-center mb-12">
-          <h2 className="font-serif text-3xl md:text-4xl text-stone-800 mb-4">Odontopediatria de <span className="text-emerald-600">💚</span></h2>
-          <p className="text-stone-500 italic">Cuidando dos pequenos com o mesmo carinho e atenção.</p>
+      {/* 7. MAIS PROVAS (Odontopediatria & Bastidores) */}
+      <Section className="bg-stone-50">
+        <div className="text-center mb-16">
+          <h2 className="font-serif text-4xl text-stone-900 mb-4">Odontopediatria de 💚</h2>
+          <p className="text-stone-600 max-w-2xl mx-auto">Porque cuidar do sorriso começa cedo, com carinho e paciência.</p>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
-           {IMAGES.pediatrics.map((url, index) => (
-            <div 
-              key={index} 
-              className="aspect-[3/4] rounded-xl overflow-hidden shadow-sm cursor-pointer group"
-              onClick={() => openImage(url)}
-            >
-              <img src={url} alt={`Odonto Baby ${index + 1}`} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+        <div className="flex overflow-x-auto gap-4 pb-8 snap-x no-scrollbar">
+          {IMAGES.pediatrics.map((url, index) => (
+            <div key={index} className="flex-none w-72 h-48 rounded-2xl overflow-hidden snap-center shadow-md">
+              <img src={url} alt="Odontopediatria" className="w-full h-full object-cover" />
             </div>
           ))}
+        </div>
+        <div className="mt-8 text-center flex items-center justify-center gap-4 text-stone-500 italic">
+          <Heart size={20} className="text-emerald-600" />
+          <span>Ambiente lúdico e atendimento especializado para os pequenos.</span>
         </div>
       </Section>
 
       {/* 8. CTA FINAL */}
-      <Section className="bg-stone-900 text-white text-center rounded-t-[3rem] md:rounded-t-[6rem] py-24 px-6 relative overflow-hidden">
-        <div className="relative z-10 max-w-2xl mx-auto space-y-10">
-          <h2 className="font-serif text-4xl md:text-5xl leading-tight">Chegou a hora de voltar a sorrir com confiança</h2>
-          <p className="text-stone-300 text-lg leading-relaxed">
-            Não deixe para depois o cuidado que você merece hoje. Agende agora sua primeira consulta gratuita.
+      <section className="bg-stone-900 text-white py-24 px-6 text-center relative overflow-hidden">
+        <div className="absolute top-0 left-0 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
+        <div className="relative z-10 max-w-3xl mx-auto">
+          <h2 className="font-serif text-4xl md:text-6xl mb-8 leading-tight">Vamos devolver o seu prazer de sorrir?</h2>
+          <p className="text-stone-400 text-xl mb-12 font-light">
+            Não adie mais o seu bem-estar. Estou aqui para te ajudar com profissionalismo e humanidade.
           </p>
-          <div className="pt-4">
-             <CTAButton 
-              label="Agendar minha consulta gratuita" 
-              subtext="Conversar diretamente pelo WhatsApp"
-              className="scale-110"
-            />
+          <div className="bg-white/5 p-8 rounded-3xl border border-white/10 mb-12">
+            <p className="text-emerald-400 font-bold text-lg mb-2 uppercase tracking-widest">Sua oportunidade hoje</p>
+            <p className="text-3xl font-serif">Primeira consulta 100% gratuita</p>
           </div>
+          <CTAButton 
+            label="Quero agendar meu atendimento" 
+            className="items-center"
+          />
         </div>
-      </Section>
+      </section>
 
       {/* 9. RODAPÉ */}
-      <footer className="bg-stone-900 text-stone-400 pt-12 pb-16 px-6 text-center border-t border-stone-800/50">
-        <div className="space-y-6">
-          <p className="font-signature text-5xl text-stone-100">Andressa Valim</p>
-          <div className="space-y-1 text-sm">
-            <p className="text-stone-100 font-semibold tracking-wide uppercase">Protesista e Implantodontista</p>
-            <p>Odontologia Real e Sedação com Óxido Nitroso</p>
+      <footer className="bg-stone-50 py-16 px-6 border-t border-stone-100">
+        <div className="max-w-5xl mx-auto flex flex-col md:flex-row justify-between items-center gap-12">
+          <div className="text-center md:text-left">
+            <p className="font-signature text-5xl text-emerald-950 mb-4">Andressa Valim</p>
+            <p className="text-stone-800 font-bold">Protesista e Implantodontista</p>
+            <p className="text-stone-500 text-sm max-w-xs mt-2 leading-relaxed">
+              Rua Maneca Quadros, 252 · Arroio Teixeira <br/>
+              Capão da Canoa · RS · CEP 95555-000
+            </p>
           </div>
-          <div className="text-xs space-y-1 opacity-60">
-            <p>RUA MANECA QUADROS 252 · Bairro Arroio Teixeira</p>
-            <p>CEP. 95555-000 · Capão da Canoa - RS</p>
-          </div>
-          <div className="pt-6 flex justify-center gap-8">
-            <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-white transition-colors">
+          
+          <div className="flex flex-col items-center md:items-end gap-6">
+            <a 
+              href={INSTAGRAM_URL} 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="flex items-center gap-3 text-stone-700 hover:text-emerald-800 transition-colors font-medium bg-white px-6 py-3 rounded-full shadow-sm"
+            >
               <Instagram size={20} />
               <span>@draandressavalim</span>
             </a>
+            <div className="text-stone-400 text-xs text-center md:text-right">
+              <p>© 2024 · Dra. Andressa Valim · Odontologia Real</p>
+              <p className="mt-1">Desenvolvido para alta performance e cuidado humano.</p>
+            </div>
           </div>
         </div>
       </footer>
 
-      {/* Lightbox Overlay */}
-      {activeImage && <Lightbox imageUrl={activeImage} onClose={closeImage} />}
+      {/* Modal Lightbox */}
+      {activeImage && <Lightbox imageUrl={activeImage} onClose={() => setActiveImage(null)} />}
     </div>
   );
 };
