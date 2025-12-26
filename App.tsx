@@ -8,7 +8,6 @@ import {
   Clock, 
   Star,
   Instagram,
-  ChevronRight,
   Maximize2,
   X
 } from 'lucide-react';
@@ -85,7 +84,6 @@ const App: React.FC = () => {
             Eu sou a <span className="text-emerald-800 font-bold italic">Dra. Andressa Valim</span>
           </h1>
 
-          {/* Repositioned Image below title */}
           <div className="relative w-full max-w-xs md:max-w-sm mx-auto mb-10 px-4">
              <img 
               src={IMAGES.expert_hero} 
@@ -99,12 +97,10 @@ const App: React.FC = () => {
           <p className="text-lg md:text-xl text-stone-600 font-light max-w-2xl mx-auto mb-6 leading-relaxed">
             Especialista em resgatar sua autoestima através da <span className="font-semibold text-stone-800">Odontologia Real</span>: próteses, implantes e bem-estar total com sedação consciente.
           </p>
-          
-          {/* Note: First button moved to Section 2 as requested */}
         </div>
       </section>
 
-      {/* 2. QUEM SOU EU (With repositioned first button) */}
+      {/* 2. QUEM SOU EU */}
       <Section className="bg-white">
         <div className="flex flex-col md:flex-row items-center gap-12">
           <div className="w-full md:w-1/2">
@@ -134,7 +130,6 @@ const App: React.FC = () => {
               </li>
             </ul>
 
-            {/* Repositioned button - specifically after the bullets */}
             <CTAButton 
               label="Agendar consulta gratuita no WhatsApp" 
               subtext="*Sem nenhum compromisso"
@@ -227,7 +222,7 @@ const App: React.FC = () => {
         </div>
       </Section>
 
-      {/* 7. MAIS PROVAS (ODONTOPEDIATRIA & BASTIDORES) */}
+      {/* 7. MAIS PROVAS */}
       <Section className="bg-stone-50 overflow-hidden">
         <div className="text-center mb-12">
           <h2 className="font-serif text-3xl md:text-4xl text-stone-800 mb-4">Odontopediatria de <span className="text-emerald-600">💚</span></h2>
@@ -244,17 +239,10 @@ const App: React.FC = () => {
             </div>
           ))}
         </div>
-        <div className="mt-12 flex justify-center">
-          <div className="flex items-center gap-2 bg-white px-6 py-3 rounded-full shadow-md text-stone-600 font-medium border border-stone-100">
-             <Star className="text-yellow-400 fill-yellow-400" size={18} />
-             <span>Atendimento humanizado para todas as idades</span>
-          </div>
-        </div>
       </Section>
 
       {/* 8. CTA FINAL */}
       <Section className="bg-stone-900 text-white text-center rounded-t-[3rem] md:rounded-t-[6rem] py-24 px-6 relative overflow-hidden">
-        <div className="absolute top-0 left-0 w-full h-full opacity-5 pointer-events-none bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-emerald-400 via-transparent to-transparent"></div>
         <div className="relative z-10 max-w-2xl mx-auto space-y-10">
           <h2 className="font-serif text-4xl md:text-5xl leading-tight">Chegou a hora de voltar a sorrir com confiança</h2>
           <p className="text-stone-300 text-lg leading-relaxed">
@@ -288,7 +276,6 @@ const App: React.FC = () => {
               <span>@draandressavalim</span>
             </a>
           </div>
-          <p className="text-[10px] pt-12 opacity-30">© 2024 Dra. Andressa Valim. Todos os direitos reservados.</p>
         </div>
       </footer>
 
